@@ -1,0 +1,22 @@
+{% load static %}
+<!doctype html> <!-- Important: must specify -->
+<html>
+<head>
+  <meta charset="utf-8"> <!-- Important: rapi-doc uses utf8 characters -->
+  <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
+
+  {% block head %}
+    <title>{{ title|default:"Swagger" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if favicon_href %}<link rel="icon" href="{% static 'images/cookbook-32x32.png' %}">{% endif %}
+    <link rel="stylesheet" href="{{ swagger_ui_css }}">
+  {% endblock head %}
+</head>
+<body>
+  <rapi-doc spec-url="{% url 'schema' %}" theme="dark" render-style="read" show-header="false"
+            primary-color="#46A0F0"
+  >
+    <img slot="nav-logo" src="{% static 'images/cookbook.png' %}"/>
+  </rapi-doc>
+</body>
+</html>
