@@ -16,16 +16,19 @@ class ChefFilter(filters.FilterSet):
     )
     responsibilities = filters.ModelMultipleChoiceFilter(
         label=_('Responsibilities'),
-        # choices=ChefResponsibility.Types.choices,
         field_name='responsibilities__label',
         to_field_name='label',
         help_text=_('Filter by responsibilities.'),
-        queryset=ChefResponsibility.objects.all_choices(),
+        queryset=ChefResponsibility.objects.all(),
     )
 
     class Meta:
         model = Chef
         fields = ['name', 'responsibilities']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['responsibilities'].queryset = ChefResponsibility.objects.all_choices()
 
     def filter_has_recipes(self, queryset, name, value):
         if value is not None:
