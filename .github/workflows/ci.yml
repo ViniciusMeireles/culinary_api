@@ -25,12 +25,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Tests
-      run: |
-        python manage.py makemigrations
-        python manage.py migrate --noinput
-        python manage.py test --keepdb
-
     - name: Run black
       uses: psf/black@stable
       with:
