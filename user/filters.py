@@ -28,7 +28,7 @@ class ChefFilter(filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['responsibilities'].queryset = ChefResponsibility.objects.all_choices()
+        self.filters['responsibilities'].queryset = ChefResponsibility.objects.all_choices()
 
     def filter_has_recipes(self, queryset, name, value):
         if value is not None:
