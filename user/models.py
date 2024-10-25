@@ -60,5 +60,8 @@ class Chef(BaseModel):
         return self.user.username
 
     def set_responsibilities(self, *responsibility_labels):
-        """Set the responsibilities of the chef."""
+        """
+        Set the responsibilities of the chef.
+        :param responsibility_labels: The labels of the ChefResponsibility objects.
+        """
         self.responsibilities.set(ChefResponsibility.objects.filter_choices(*responsibility_labels))

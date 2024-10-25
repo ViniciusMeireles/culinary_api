@@ -35,11 +35,13 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         attrs = super().validate(attrs)
+        # Convert the list of usernames to a list of chef ids.
         attrs['shared_with'] = Chef.objects.filter(user__username__in=attrs.get('shared_with', [])).values_list(
             'id', flat=True
         )
 
         if (request := self.context.get('request')) and request.user.is_authenticated:
+            # If the user is a chef, set the chef_id attribute.
             try:
                 attrs['chef_id'] = request.user.chef.id
             except Chef.DoesNotExist:

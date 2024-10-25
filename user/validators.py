@@ -8,6 +8,8 @@ from user.models import User
 
 @deconstructible
 class UsernameExistValidator(BaseValidator):
+    """Validator that checks if a username exists in the database."""
+
     message = _('User not found.')
 
     def __init__(self, message=None):

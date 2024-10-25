@@ -10,6 +10,7 @@ USER_MODEL = get_user_model()
 
 
 def get_user_test_data(num: Optional[int] = 1, **kwargs):
+    """Get user test data"""
     data = {
         'first_name': f'Test{num}',
         'last_name': f'User{num}',
@@ -22,6 +23,7 @@ def get_user_test_data(num: Optional[int] = 1, **kwargs):
 
 
 def get_chef_test_data(num: Optional[int] = 1, **kwargs):
+    """Get chef test data"""
     data = {
         'bio': f'Test bio {num}',
     }
@@ -36,10 +38,12 @@ class BaseAPITestCase(APITestCase):
         self.user = self.chef.user
 
     def create_chef(self, num: Optional[int] = 1) -> Chef:
+        """Create a chef"""
         user = USER_MODEL.objects.create_user(**get_user_test_data(num))
         chef = Chef.objects.create(**get_chef_test_data(num, user_id=user.id))
         chef.set_responsibilities(*ChefResponsibility.Types.values)
         return chef
 
     def authenticate_user(self, user: Optional[AbstractUser] = None):
+        """Authenticate a user"""
         self.client.force_authenticate(user=user or self.user)

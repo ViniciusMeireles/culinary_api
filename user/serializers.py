@@ -66,6 +66,7 @@ class ChefSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
+        # Validate user data
         UserModelSerializer(
             data=self.initial_data,
             instance=self.instance.user if self.instance else None,
@@ -77,6 +78,7 @@ class ChefSerializer(serializers.ModelSerializer):
         responsibilities = validated_data.pop('responsibilities', [])
 
         with transaction.atomic():
+            # Create the user and the chef
             user = USER_MODEL.objects.create_user(**user_data)
             chef = Chef.objects.create(user=user, **validated_data)
             chef.set_responsibilities(*responsibilities)
@@ -87,6 +89,7 @@ class ChefSerializer(serializers.ModelSerializer):
         responsibilities = validated_data.pop('responsibilities', [])
 
         if user_data:
+            # Update the user data
             for attr, value in user_data.items():
                 setattr(instance.user, attr, value)
             instance.user.save()
@@ -99,6 +102,8 @@ class ChefSerializer(serializers.ModelSerializer):
 
 
 class ChefSimpleSerializer(serializers.ModelSerializer):
+    """Simple serializer for the Chef model."""
+
     full_name = serializers.SerializerMethodField(label=_('Full Name'), help_text=_('Full name of the chef.'))
     username = serializers.CharField(source='user.username', label=_('Username'), help_text=_('Username of the chef.'))
 

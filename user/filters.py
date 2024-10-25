@@ -6,6 +6,8 @@ from user.models import Chef, ChefResponsibility
 
 
 class ChefFilter(filters.FilterSet):
+    """Filter for chefs."""
+
     name = filters.CharFilter(
         label=_('Name'),
         help_text=_('Filter by chef name.'),
@@ -39,6 +41,7 @@ class ChefFilter(filters.FilterSet):
 
     def filter_name(self, queryset, name, value):
         if value:
+            # Filter by first name or last name
             queryset = queryset.filter(
                 Q(user__first_name__icontains=value) | Q(user__last_name__icontains=value)
             ).distinct()

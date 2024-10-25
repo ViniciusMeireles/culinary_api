@@ -5,6 +5,8 @@ from user.validators import UsernameExistValidator
 
 
 class ChefResponsibilityList(fields.ListField):
+    """List of chef responsibilities in the form of a list of strings."""
+
     child = fields.ChoiceField(choices=ChefResponsibility.Types.choices)
 
     def to_representation(self, data):
@@ -13,6 +15,8 @@ class ChefResponsibilityList(fields.ListField):
 
 
 class ChefNameList(fields.ListField):
+    """List of chef usernames in the form of a list of strings."""
+
     child = fields.CharField(validators=[UsernameExistValidator()])
 
     def to_representation(self, data):

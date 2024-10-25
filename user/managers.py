@@ -9,5 +9,8 @@ class ChefResponsibilityManager(models.Manager):
         return self.get_queryset().all()
 
     def filter_choices(self, *labels):
-        """Return a queryset of ChefResponsibility objects for the given labels list."""
+        """
+        Return a queryset of ChefResponsibility objects for the given labels list.
+        :param labels: The labels of the ChefResponsibility objects.
+        """
         return self.all_choices().filter(label__in=labels)
