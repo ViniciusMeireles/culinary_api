@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from user.fields import ChefResponsibilityList
@@ -34,11 +35,21 @@ class ChefSerializer(serializers.ModelSerializer):
     )
 
     # User fields
-    first_name = serializers.CharField(source='user.first_name')
-    last_name = serializers.CharField(source='user.last_name')
-    username = serializers.CharField(source='user.username')
-    email = serializers.EmailField(source='user.email')
-    password = serializers.CharField(source='user.password', write_only=True, required=False)
+    first_name = serializers.CharField(
+        source='user.first_name', label=_('First Name'), help_text=_('First name of the chef.')
+    )
+    last_name = serializers.CharField(
+        source='user.last_name', label=_('Last Name'), help_text=_('Last name of the chef.')
+    )
+    username = serializers.CharField(source='user.username', label=_('Username'), help_text=_('Username of the chef.'))
+    email = serializers.EmailField(source='user.email', label=_('Email'), help_text=_('Email of the chef.'))
+    password = serializers.CharField(
+        source='user.password',
+        write_only=True,
+        required=False,
+        label=_('Password'),
+        help_text=_('Password of the chef.'),
+    )
 
     class Meta:
         model = Chef
@@ -88,8 +99,8 @@ class ChefSerializer(serializers.ModelSerializer):
 
 
 class ChefSimpleSerializer(serializers.ModelSerializer):
-    full_name = serializers.SerializerMethodField()
-    username = serializers.CharField(source='user.username')
+    full_name = serializers.SerializerMethodField(label=_('Full Name'), help_text=_('Full name of the chef.'))
+    username = serializers.CharField(source='user.username', label=_('Username'), help_text=_('Username of the chef.'))
 
     class Meta:
         model = Chef

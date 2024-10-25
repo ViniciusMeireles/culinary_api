@@ -8,7 +8,9 @@ from user.serializers import ChefSimpleSerializer
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    recipe_chef = ChefSimpleSerializer(source='chef', read_only=True)
+    recipe_chef = ChefSimpleSerializer(
+        source='chef', read_only=True, label=_('Chef'), help_text=_('Chef who created the recipe.')
+    )
     shared_with = ChefNameList(
         label=_('Username List of Chefs'),
         help_text=_('List of chefs with whom the recipe is shared.'),

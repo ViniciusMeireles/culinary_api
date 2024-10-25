@@ -8,11 +8,13 @@ from user.models import Chef, ChefResponsibility
 class ChefFilter(filters.FilterSet):
     name = filters.CharFilter(
         label=_('Name'),
+        help_text=_('Filter by chef name.'),
         method='filter_name',
     )
     has_recipes = filters.BooleanFilter(
         method='filter_has_recipes',
         label=_('Has Recipes'),
+        help_text=_('Filter by chefs with recipes.'),
     )
     responsibilities = filters.ModelMultipleChoiceFilter(
         label=_('Responsibilities'),
