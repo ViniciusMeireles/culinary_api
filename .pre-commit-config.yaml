@@ -23,3 +23,4 @@ repos:
       - id: isort
         name: isort (python)
         language_version: python3.12
+        exclude: ^.*\b(migrations)\b.*$
