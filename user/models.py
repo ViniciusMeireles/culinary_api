@@ -37,13 +37,6 @@ class ChefResponsibility(models.Model):
 
 
 class Chef(BaseModel):
-    class ChefType(models.TextChoices):
-        EXECUTIVE_CHEF = "executive_chef", _("Executive Chef")
-        CHEF = "chef", _("Chef")
-        SOUS_CHEF = "sous_chef", _("Sous Chef")
-        BAKER = "baker", _("Baker")
-        PASTRY_CHEF = "pastry_chef", _("Pastry Chef")
-
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     bio = models.TextField(
         verbose_name=_("Biography"),
